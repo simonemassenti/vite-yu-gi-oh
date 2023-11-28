@@ -25,7 +25,6 @@ methods: {
             }
         })
         .then((resp) => {
-            console.log("hello");
             this.store.cards = resp.data.data;
         })
     }
@@ -38,8 +37,8 @@ methods: {
         <AppSelect @filter="filter"/>
 
         <div class="container" >
-            <div class="row">
-                <div class="col" v-for="card in store.cards">
+            <div class="row row-cols-5">
+                <div class="col mb-2 p-2" v-for="card in store.cards">
                     <Card :image="card.card_images[0].image_url" :name="card.name" :archetype="card.archetype"/>
                 </div>
                 
@@ -57,11 +56,5 @@ methods: {
 
 .container {
     background-color: white;
-
-    .row{
-        .col{
-            height: 100%;
-        }
-    }
 }
 </style>
