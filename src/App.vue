@@ -27,6 +27,8 @@ export default {
 <template>
     <AppHeader />
     <CardContainer />
+
+
 </template>
 
 <style lang="scss">

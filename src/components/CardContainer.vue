@@ -1,13 +1,33 @@
 <script>
 import Card from './Card.vue';
 import { store } from '../store.js';
+import AppSelect from './AppSelect.vue';
+import axios from 'axios';
 export default {
     components: {
-    Card
+    Card,
+    AppSelect
 },
 data() {
     return {
-        store
+        store,
+        num: 20,
+        offset: 0
+    }
+},
+methods: {
+    filter() {
+        axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php", {
+            params: {
+                num: this.num,
+                offset: this.offset,
+                archetype: this.store.selected
+            }
+        })
+        .then((resp) => {
+            console.log("hello");
+            this.store.cards = resp.data.data;
+        })
     }
 }
 }
@@ -15,6 +35,8 @@ data() {
 
 <template>
     <div class="container-fluid p-4">
+        <AppSelect @filter="filter"/>
+
         <div class="container" >
             <div class="row">
                 <div class="col" v-for="card in store.cards">
@@ -35,5 +57,11 @@ data() {
 
 .container {
     background-color: white;
+
+    .row{
+        .col{
+            height: 100%;
+        }
+    }
 }
 </style>
